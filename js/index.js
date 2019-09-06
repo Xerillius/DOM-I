@@ -40,3 +40,64 @@ const siteContent = {
 // Example: Update the img src for the logo
 let logo = document.getElementById("logo-img");
 logo.setAttribute('src', siteContent["nav"]["img-src"])
+
+// Add text to anchor tags
+let navSelectors = document.querySelectorAll('a');
+let navTargets = Object.values(siteContent.nav);
+
+for(let i = 0; i < navSelectors.length; i++) {
+  navSelectors[i].textContent = navTargets[i];
+  navSelectors[i].style.color = "red";
+}
+
+// Add 2 nav links
+let nav = document.querySelector('nav');
+
+// prepend
+let tag = document.createElement('a');
+tag.setAttribute('href', '#');
+tag.innerText = "Something";
+nav.prepend(tag);
+tag.style.color = "red";
+
+// append
+tag = document.createElement('a');
+tag.setAttribute('href', "#");
+tag.innerText = "Testemonials";
+nav.appendChild(tag);
+tag.style.color = "red";
+
+// set dom is awesome text and button
+document.querySelector('h1').innerHTML = "DOM <br>IS <br>AWESOME ";
+document.querySelector('button').innerHTML = "Get Started";
+
+// Set "Dom is awesome" image
+let header = document.getElementById("cta-img");
+header.setAttribute('src', siteContent["cta"]["img-src"])
+
+// set mid page image
+let midPage = document.getElementById('middle-img');
+midPage.setAttribute('src', siteContent["main-content"]["middle-img-src"])
+
+// set text-content fields
+let textContent = document.getElementsByClassName('text-content');
+let mainContent = Object.values(siteContent["main-content"]);
+// filter out image -- Filterception
+mainContent = mainContent.filter(a => a !== mainContent.filter(b => b.match(/img/))[0]);
+
+for(let i = 0; i < mainContent.length; i+=2) {
+  textContent[i/2].childNodes[1].innerHTML = mainContent[i];
+  textContent[i/2].childNodes[3].innerHTML = mainContent[i+1];
+}
+
+// set contact section
+let contact = document.getElementsByClassName('contact');
+let contactContent = Object.values(siteContent["contact"]);
+
+for(let i = 1; i < contact[0].childNodes.length; i+=2) {
+  contact[0].childNodes[i].textContent = contactContent.shift();
+}
+
+// set footer
+let footer = document.getElementsByTagName('footer');
+footer[0].childNodes[1].textContent = Object.values(siteContent['footer'])
